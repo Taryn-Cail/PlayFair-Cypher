@@ -24,6 +24,8 @@ import java.util.Scanner;
  *
  *  Otherwise, form a rectangle, reading left to right.
  *
+ *
+ * Credit to GeeksforGeeks
  ******************************************************************/
 class PlayFairCypher
 {
