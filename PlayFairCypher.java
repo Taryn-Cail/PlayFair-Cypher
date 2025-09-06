@@ -3,27 +3,24 @@ import java.util.Scanner;
 /*******************************************************************
  *  PlayFair Cypher Encryption
  *
- *  Purpose: To encrypt a given word and key into a PlayFair
- *  Cypher.
+ *  Purpose: To encrypt a given word using the PlayFair Cipher.
+ *           The cipher generates a 5x5 letter grid (excluding 'j'),
+ *           then uses a set of rules to encode pairs of letters.
  *
- *  The value to be encrypted is split into pairs of two letters.
+ *  Rules of PlayFair Cipher:
+ * 1) Generate a 5x5 grid with unique letters (excluding 'j').
+ *    The key for the grid is based on the input word, followed by
+ *    the rest of the alphabet, skipping duplicates.
  *
+ * 2) Replace 'j' with 'i'.
  *
- *  --- Rules of PlayFair Cypher ---
- *  Given a keyword, a 5x5 grid will be generated using the
- *  leftover letters in the alphabet with no repetitions.
- *  J is usually omitted.
+ * 3) Split the input text into pairs of letters.
+ *    If there's an odd number of letters, add a filler (e.g., 'z').
  *
- *  When encrypting...
- *  If both letters are in the same column take the letter
- *  below each one.
- *
- *  If both letters are in the same row take the letter to
- *  the right of each one. Will wrap around if at the left-most
- *  of the square.
- *
- *  Otherwise, form a rectangle, reading left to right.
- *
+ * 4) For each pair, apply the following encryption rules:
+ *    - Same column: Take the letter below each (wrap around if needed).
+ *    - Same row: Take the letter to the right of each (wrap around).
+ *    - Rectangle: Swap the column values between the two letters.
  *
  * Credit to GeeksforGeeks
  ******************************************************************/
@@ -35,44 +32,35 @@ class PlayFairCypher
         // Declaring Scanner for user input
         Scanner input = new Scanner(System.in);
 
-        // Asking user for Key to create the grid
-        System.out.println("Please enter key: ");
-        String stringKey = input.next();
-
         // Asking user for value to be encrypted
         System.out.println("Please enter value to be encrypted: ");
         String stringValue = input.next();
 
         // Converting to String Builder
-        // StringBuilder is used because it is easier to
-        // change and manipulate
-        StringBuilder key = new StringBuilder(stringKey);
+        // StringBuilder is used because it is easier to change and manipulate
         StringBuilder str = new StringBuilder(stringValue);
 
         // Displaying the values
-        System.out.println("Key text: " + key);
         System.out.println("Value text: " + str);
-        encryptByPlayfairCipher(str, key);
+        encryptByPlayfairCipher(str);
         System.out.println("Cypher text: " + str);
     }
 
     // Function to encrypt using Playfair Cipher
-    static void encryptByPlayfairCipher(StringBuilder str, StringBuilder key)
+    static void encryptByPlayfairCipher(StringBuilder str)
     {
         // Create matrix for cypher
         char[][] keyT = new char[5][5];
 
-        // Preparing the Key and Value
-        removeSpaces(key);
+        // Preparing the Value
         removeSpaces(str);
-        toLowerCase(key);
         toLowerCase(str);
 
         // Making sure words are even, adding x as a "bogus" value
         prepare(str);
 
         // Generating the Grid
-        generateKeyTable(key, keyT);
+        generateKeyTable(str, keyT);
 
         // Printing the Grid
         printKeyTable(keyT);
