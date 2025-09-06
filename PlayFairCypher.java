@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 /*******************************************************************
+ * @author - Taryn Cail
+ * @date - September 2025
+ *
  *  PlayFair Cypher Encryption
  *
  *  Purpose: To encrypt a given word using the PlayFair Cipher.
@@ -22,7 +25,7 @@ import java.util.Scanner;
  *    - Same row: Take the letter to the right of each (wrap around).
  *    - Rectangle: Swap the column values between the two letters.
  *
- * Credit to GeeksforGeeks
+ * Credit to GeeksforGeeks and National Treasure for the idea.
  ******************************************************************/
 class PlayFairCypher
 {
